@@ -1,1 +1,4 @@
 config.py
+__pycache__
+*.mp3
+DenVot
