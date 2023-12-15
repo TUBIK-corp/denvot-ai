@@ -1,4 +1,9 @@
 config.py
 __pycache__
 *.mp3
-DenVot
+models
+input
+output
+venv
+hubert_base.pt
+rmvpe.pt
