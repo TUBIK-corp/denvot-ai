@@ -1,7 +1,6 @@
 config.py
 __pycache__
 *.mp3
-models
 input
 output
 venv

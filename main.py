@@ -18,9 +18,13 @@ model = "denvot.pth"
 can_speak = True
 max_outputs = 5
 
+if not os.path.exists('input'): os.mkdir('input')
+if not os.path.exists('output'): os.mkdir('output')
+
 async def speech(mess):
         communicate = edge_tts.Communicate(mess, "ru-RU-DmitryNeural")
-        i = int(natsorted(os.listdir("output"))[-1][:-4].split('_')[-1]) + 1
+        if len(os.listdir("output")) == 0: i = 0
+        else: i = int(natsorted(os.listdir("output"))[-1][:-4].split('_')[-1]) + 1
         file_name = "test_" + str(i) + ".wav"
         if len(os.listdir("output")) >= max_outputs: os.remove("output\\" + natsorted(os.listdir("output"))[0])
         await communicate.save("input\\" + file_name)
