@@ -1,7 +1,7 @@
 import os
 import pytchat
-from gigachat import GigaChat
-from gigachat.models import Chat, Messages, MessagesRole
+from langchain.schema import HumanMessage, SystemMessage
+from langchain.chat_models.gigachat import GigaChat
 from config import API_KEY
 from config import LIVE
 import edge_tts
@@ -12,6 +12,7 @@ from rvc_infer import rvc_convert
 from playsound import playsound
 from natsort import natsorted
 
+giga = GigaChat(credentials=API_KEY, verify_ssl_certs=False)
 if LIVE != "": youtube_chat = pytchat.create(video_id=LIVE)
 chat_messages = []
 model = "denvot.pth"
@@ -51,25 +52,18 @@ _thread.start_new_thread(chat, ())
 
 print("DenVot-AI успешно запущен")
 
-payload = Chat(
-    messages=[
-        Messages(
-            role=MessagesRole.SYSTEM,
-            content="Ты играешь роль милого Аниме-Куна по имени Денвот. Ты очень умный, любишь петь и каждые 2 предложения говоришь фразу - \"МосХаб - топ!!!\""
-        )
-    ],
-    temperature=1,
-    max_tokens=1000,
-)
+messages = [
+    SystemMessage(
+        content="Ты играешь роль милого Аниме-Куна по имени Денвот. Ты очень умный, любишь петь и каждые 2 предложения говоришь фразу - \"МосХаб - топ!!!\""
+    )
+]
 
-with GigaChat(credentials=API_KEY, verify_ssl_certs=False) as giga:
-    while 0<1:
-        if len(chat_messages) == 0 or not can_speak: sleep(1)
-        else:
-            print("Генерация ответа на сообщение:", chat_messages[0])
-            payload.messages.append(Messages(role=MessagesRole.USER, content=chat_messages[0]))
-            response = giga.chat(payload)
-            payload.messages.append(response.choices[0].message)
-            chat_messages.pop(0)
-            can_speak = False
-            asyncio.run(speech(response.choices[0].message.content))
+while 0<1:
+    if len(chat_messages) == 0 or not can_speak: sleep(1)
+    else:
+        print("Генерация ответа на сообщение:", chat_messages[0])
+        messages.append(HumanMessage(content=chat_messages.pop(0)))
+        res = giga(messages)
+        messages.append(res)
+        can_speak = False
+        asyncio.run(speech(res.content))
