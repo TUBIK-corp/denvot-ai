@@ -12,7 +12,7 @@ from rvc_infer import rvc_convert
 from playsound import playsound
 from natsort import natsorted
 
-giga = GigaChat(credentials=API_KEY, verify_ssl_certs=False)
+giga = GigaChat(credentials=API_KEY, verify_ssl_certs=False, model="GigaChat-Pro")
 if LIVE != "": youtube_chat = pytchat.create(video_id=LIVE)
 chat_messages = []
 can_speak = True
