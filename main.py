@@ -15,8 +15,10 @@ from natsort import natsorted
 giga = GigaChat(credentials=API_KEY, verify_ssl_certs=False)
 if LIVE != "": youtube_chat = pytchat.create(video_id=LIVE)
 chat_messages = []
-model = "denvot.pth"
 can_speak = True
+
+model = "denvot.pth"
+prompt = "Ты играешь роль милого Аниме-Куна по имени Денвот, тебя также иногда называют Пупс. Ты очень умный, любишь петь и говорить фразу - \"МосХаб - топ!!!\""
 max_outputs = 5
 
 if not os.path.exists('input'): os.mkdir('input')
@@ -52,11 +54,7 @@ _thread.start_new_thread(chat, ())
 
 print("DenVot-AI успешно запущен")
 
-messages = [
-    SystemMessage(
-        content="Ты играешь роль милого Аниме-Куна по имени Денвот. Ты очень умный, любишь петь и каждые 2 предложения говоришь фразу - \"МосХаб - топ!!!\""
-    )
-]
+messages = [SystemMessage(content=prompt)]
 
 while 0<1:
     if len(chat_messages) == 0 or not can_speak: sleep(1)
