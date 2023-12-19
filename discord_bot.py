@@ -2,7 +2,7 @@ import denvot_ai
 import discord
 import os
 import nest_asyncio
-from time import sleep
+import asyncio
 from config import DISCORD_TOKEN
 from discord.ext import commands
 
@@ -30,9 +30,9 @@ async def dnv(ctx, *args):
         message = ctx.message.author.name + ": " + " ".join(args)
         if denvot_ai.can_speak:
             audio_path = os.getcwd().replace('\\', '/') + '/output/' + denvot_ai.send_message(message)
-            while not os.path.exists(audio_path): sleep(1)
+            while not os.path.exists(audio_path): await asyncio.sleep(1)
             ctx.voice_client.play(discord.FFmpegPCMAudio(source=audio_path))
-        await ctx.send("Рот занят")
+        else: await ctx.send("Рот занят")
     else: await ctx.send("Я не в войсике, Пупс")
     
 bot.run(DISCORD_TOKEN)

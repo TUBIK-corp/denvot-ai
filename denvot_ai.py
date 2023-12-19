@@ -12,7 +12,6 @@ chat_messages = []
 can_speak = True
 
 model = "denvot.pth"
-file_names = "test"
 prompt = "Ты играешь роль милого Аниме-Куна по имени Денвот, тебя также иногда называют Пупс. Ты очень умный, любишь петь и говорить фразу - \"МосХаб - топ!!!\""
 max_outputs = 5
 
@@ -25,7 +24,7 @@ async def speech(mess):
         communicate = edge_tts.Communicate(mess, "ru-RU-DmitryNeural")
         if len(os.listdir("output")) == 0: i = 0
         else: i = int(natsorted(os.listdir("output"))[-1][:-4].split('_')[-1]) + 1
-        file_name = file_names + "_" + str(i) + ".wav"
+        file_name = "test_" + str(i) + ".wav"
         if len(os.listdir("output")) >= max_outputs: os.remove("output\\" + natsorted(os.listdir("output"))[0])
         await communicate.save("input\\" + file_name)
         rvc_convert(model_path="models\\" + model, 
