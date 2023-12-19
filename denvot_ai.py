@@ -32,13 +32,13 @@ async def tts(message, rvc_model=df_rvc_model, tts_model=df_tts_model, pitch=df_
                     f0_up_key=pitch)
         os.rename("output\\out.wav", "output\\" + file_name)
         os.remove("input\\" + file_name)
-        while not os.path.exists(file_name): await asyncio.sleep(1)
         print("DenVot: " + file_name)
-        return(file_name)
+        while not os.path.isfile("output\\" + file_name): await asyncio.sleep(1)
+        return(os.getcwd().replace('\\', '/') + '/output/' + file_name)
 
 messages = [SystemMessage(content=prompt)]
 
-def send_message(message, rvc_model=df_rvc_model, tts_model=df_tts_model, pitch=df_pitch):
+def send(message, rvc_model=df_rvc_model, tts_model=df_tts_model, pitch=df_pitch):
     print("Генерация ответа на сообщение:", message)
     messages.append(HumanMessage(content=message))
     res = giga(messages)
