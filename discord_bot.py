@@ -10,6 +10,8 @@ nest_asyncio.apply()
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='>', intents=intents)
+can_speak = True
+audio_paths = []
 
 @bot.command()
 async def join(ctx):
@@ -28,11 +30,8 @@ async def leave(ctx):
 async def dnv(ctx, *args):
     if ctx.voice_client != None:
         message = ctx.message.author.name + ": " + " ".join(args)
-        if denvot_ai.can_speak:
-            audio_path = os.getcwd().replace('\\', '/') + '/output/' + denvot_ai.send_message(message)
-            while not os.path.exists(audio_path): await asyncio.sleep(1)
-            ctx.voice_client.play(discord.FFmpegPCMAudio(source=audio_path))
-        else: await ctx.send("Рот занят")
+        audio_path = os.getcwd().replace('\\', '/') + '/output/' + denvot_ai.send_message(message)
+        ctx.voice_client.play(discord.FFmpegPCMAudio(source=audio_path))
     else: await ctx.send("Я не в войсике, Пупс")
-    
+
 bot.run(DISCORD_TOKEN)
