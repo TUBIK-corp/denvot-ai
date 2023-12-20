@@ -32,7 +32,8 @@ async def tts(message, rvc_model=df_rvc_model, tts_model=df_tts_model, pitch=df_
         await communicate.save("input\\" + file_name)
         rvc_convert(model_path="models\\" + rvc_model, 
                     input_path="input\\" + file_name,
-                    f0_up_key=pitch)
+                    f0_up_key=pitch,
+                    rvc_path='venv/src/rvc/')
         os.rename("output\\out.wav", "output\\" + file_name)
         os.remove("input\\" + file_name)
         print("DenVot: " + file_name)
