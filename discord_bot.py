@@ -21,9 +21,12 @@ def playlist():
             print(audio_paths.pop(0))
             voice_client.play(discord.FFmpegPCMAudio(source=audio))
         else: sleep(1)
+
+
 Thread(target=playlist).start()
 
-def audio_append(message): audio_paths.append(denvot_ai.send(message))
+def audio_append(message):
+    audio_paths.append(denvot_ai.send(message))
 
 @bot.command()
 async def join(ctx):
@@ -34,6 +37,7 @@ async def join(ctx):
         voice_client = ctx.voice_client
     else: await ctx.send("Ты не в войсике, Пупс")
 
+
 @bot.command()
 async def leave(ctx):
     if ctx.voice_client != None: 
@@ -43,10 +47,16 @@ async def leave(ctx):
     else: await ctx.send("Я не в войсике, Пупс")
 
 @bot.command()
+async def clear(ctx):
+    denvot_ai.clear()
+    await ctx.send("Знищено!")
+
+@bot.command()
 async def dnv(ctx, *args):
     if ctx.voice_client != None:
         message = ctx.message.author.name + ": " + " ".join(args)
         Thread(target=audio_append, args=[message]).start()
+        await ctx.send("Я в деле!")
     else: await ctx.send("Я не в войсике, Пупс")
 
 bot.run(DISCORD_TOKEN)
