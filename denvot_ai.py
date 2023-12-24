@@ -21,8 +21,9 @@ if not os.path.exists('output'): os.mkdir('output')
 print("DenVot-AI успешно запущен")
 
 
-messages = []
+messages = [SystemMessage(content=prompt)]
 def clear():
+    global messages
     messages = [SystemMessage(content=prompt)]
 
 tts = TTS_RVC(rvc_path="src\\rvc", model_path="models\\denvot.pth", input_directory="input\\")
