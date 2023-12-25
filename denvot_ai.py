@@ -36,4 +36,7 @@ def send(message, pitch=df_pitch):
     messages.append(HumanMessage(content=message))
     res = giga(messages)
     messages.append(res)
-    return tts(res.content, pitch, add_rate=args[0], add_volume=args[1], add_pitch=args[2])
+    return tts(res.content, pitch=(args[3] if args[3] != 0 else pitch),
+               tts_rate=args[0],
+               tts_volume=args[1],
+               tts_pitch=args[2])

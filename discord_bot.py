@@ -49,7 +49,18 @@ async def leave(ctx):
 @bot.command()
 async def clear(ctx):
     denvot_ai.clear()
-    await ctx.send("Знищено!")
+    await ctx.send("Почищено!")
+
+@bot.command()
+async def dnvhelp(ctx):
+    await ctx.send("""
+    Бригада приехала!
+    `/dnv (запрос)` - денвот ответит на хорошие вопросы и сочинит интересные истории!
+    `--tts-rate (число)` - дополняет скорость речи! 
+    `--tts-volume (число)` - качает громкость речи! 
+    `--tts-pitch (число)` - изменяет тональность нетрезвой речи! 
+    `--rvc-pitch (число)` - изменяет тональность трезвой речи (рек. использовать это, вместо --tts-pitch)! 
+    """)
 
 @bot.command()
 async def dnv(ctx, *args):
