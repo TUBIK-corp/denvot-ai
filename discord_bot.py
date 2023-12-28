@@ -35,7 +35,7 @@ async def join(ctx):
         await channel.connect()
         global voice_client
         voice_client = ctx.voice_client
-    else: await ctx.send("Ты не в войсике, Пупс")
+    else: await ctx.send("Ты не в войсике, Пупс!!! 🤬")
 
 
 @bot.command()
@@ -44,12 +44,12 @@ async def leave(ctx):
         await ctx.voice_client.disconnect()
         global voice_client
         voice_client = None
-    else: await ctx.send("Я не в войсике, Пупс")
+    else: await ctx.send("Я не в войсике, Пупс!!! 🤬")
 
 @bot.command()
 async def clear(ctx):
     denvot_ai.clear()
-    await ctx.send("Почищено!")
+    await ctx.send("Прочищено, Пупсик! 😏")
 
 @bot.command()
 async def dnvhelp(ctx):
@@ -67,7 +67,7 @@ async def dnv(ctx, *args):
     if ctx.voice_client != None:
         message = ctx.message.author.name + ": " + " ".join(args)
         Thread(target=audio_append, args=[message]).start()
-        await ctx.send("Я в деле!")
-    else: await ctx.send("Я не в войсике, Пупс")
+        await ctx.send("Я в деле! 🤓")
+    else: await ctx.send("Я не в войсике, Пупс!!! 🤬")
 
 bot.run(DISCORD_TOKEN)
