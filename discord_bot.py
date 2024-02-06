@@ -28,6 +28,9 @@ Thread(target=playlist).start()
 def audio_append(message):
     audio_paths.append(denvot_ai.send(message))
 
+def tts_append(message):
+    audio_paths.append(denvot_ai.ttss(message))
+
 @bot.command()
 async def join(ctx):
     if ctx.author.voice != None: 
@@ -69,5 +72,18 @@ async def dnv(ctx, *args):
         Thread(target=audio_append, args=[message]).start()
         await ctx.send("Я в деле! 🤓")
     else: await ctx.send("Я не в войсике, Пупс!!! 🤬")
+
+@bot.command()
+async def dnvtts(ctx, *args):
+    if ctx.voice_client != None:
+        message = " ".join(args)
+        Thread(target=tts_append, args=[message]).start()
+        await ctx.send("Я в деле! 🤓")
+    else: await ctx.send("Я не в войсике, Пупс!!! 🤬")
+
+@bot.command()
+async def dnvset(ctx, *args):
+    denvot_ai.sets(args[0], args[1], args[2])
+    await ctx.send("rvc:" + args[0] + " tts:" + args[1] + " pitch:" + args[2])
 
 bot.run(DISCORD_TOKEN)
