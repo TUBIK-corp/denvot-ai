@@ -6,7 +6,7 @@
 3) Установите [ffmpeg](https://ffmpeg.org/download.html)
 4) Скачиваем denvot-ai репозиторий:
    ```
-   git clone https://github.com/TUBIK-corp/denvot-ai
+   git clone https://github.com/TUBIK-corp/denvot-ai/
    cd .\denvot-ai\
    ```
 5) Создаём venv:
